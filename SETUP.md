@@ -1,7 +1,6 @@
 # Idea Archive — Setup Guide
 
-Your app lives at: **`https://YOUR-USERNAME.github.io/idea-archive/`**
-(Once the app is deployed, replace YOUR-USERNAME with your GitHub username — the exact link will be given to you at deploy time.)
+Your app lives at: **https://tay-ctrl.github.io/idea-archive/**
 
 ---
 
