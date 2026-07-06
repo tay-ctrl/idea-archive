@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Idea Archive</title>
+  <meta name="description" content="Capture and organize your ideas — fully offline.">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Idea Archive">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <h1 class="app-title">
+      <svg class="app-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.05V17a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-.25c0-.75.4-1.55 1-2.05A7 7 0 0 0 12 2Zm-2 17.5a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V19h-4v.5Z"/></svg>
+      Idea Archive
+    </h1>
+    <button id="theme-toggle" class="icon-btn" type="button" aria-label="Toggle dark mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-15a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 18a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Zm10-8a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1ZM5 12a1 1 0 0 1-1 1H3a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1Zm13.66-6.66a1 1 0 0 1 0 1.41l-.7.71a1 1 0 1 1-1.42-1.41l.71-.71a1 1 0 0 1 1.41 0ZM7.46 16.54a1 1 0 0 1 0 1.41l-.71.71a1 1 0 0 1-1.41-1.41l.7-.71a1 1 0 0 1 1.42 0Zm11.2 1.41a1 1 0 0 1-1.41 1.41l-.71-.7a1 1 0 0 1 1.41-1.42l.71.71ZM7.46 7.46a1 1 0 0 1-1.42 0l-.7-.71a1 1 0 0 1 1.41-1.41l.71.7a1 1 0 0 1 0 1.42Z"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 14.53A9 9 0 0 1 9.47 3 9 9 0 1 0 21 14.53Z"/></svg>
+    </button>
+  </header>
+
+  <main class="app-main">
+
+    <!-- ============ HOME / DASHBOARD ============ -->
+    <section id="view-home" class="view is-active">
+      <h2 class="view-title">New Idea</h2>
+      <form id="idea-form" autocomplete="off">
+        <label class="field-label" for="idea-topic">Idea topic</label>
+        <input id="idea-topic" class="text-input" type="text" placeholder="What's your idea?" required maxlength="200">
+        <label class="field-label" for="idea-category">Category</label>
+        <select id="idea-category" class="select-input" required></select>
+        <button type="submit" class="btn btn-primary btn-block">Add Idea</button>
+      </form>
+      <p id="home-stats" class="home-stats"></p>
+    </section>
+
+    <!-- ============ IDEAS ============ -->
+    <section id="view-ideas" class="view">
+      <div class="view-head">
+        <h2 class="view-title">Ideas</h2>
+        <button id="export-all-btn" class="btn btn-small btn-outline" type="button">Export all</button>
+      </div>
+      <div id="ideas-list"></div>
+    </section>
+
+    <!-- ============ CATEGORIES ============ -->
+    <section id="view-categories" class="view">
+      <h2 class="view-title">Categories</h2>
+      <form id="category-form" class="row-form" autocomplete="off">
+        <input id="category-name" class="text-input" type="text" placeholder="New category name" required maxlength="60">
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+      <ul id="categories-list" class="plain-list"></ul>
+    </section>
+
+    <!-- ============ SETTINGS ============ -->
+    <section id="view-settings" class="view">
+      <h2 class="view-title">Settings</h2>
+
+      <div class="settings-group">
+        <h3 class="settings-heading">Backup &amp; Restore</h3>
+        <p class="settings-note">Your ideas live only on this device. Make a backup regularly and keep the file somewhere safe (e.g. iCloud Files).</p>
+        <button id="backup-btn" class="btn btn-primary btn-block" type="button">Backup all data</button>
+        <button id="restore-btn" class="btn btn-outline btn-block" type="button">Restore from backup</button>
+        <input id="restore-file" type="file" accept=".json,application/json" hidden>
+      </div>
+
+      <div class="settings-group">
+        <h3 class="settings-heading">About</h3>
+        <p class="settings-note">Idea Archive v1 — works fully offline. All data stays on your device. No accounts, no cloud, no tracking.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="tab-bar">
+    <button class="tab is-active" data-view="home" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.1 3 10.2V21a1 1 0 0 0 1 1h6v-6h4v6h6a1 1 0 0 0 1-1V10.2L12 3.1Z"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="tab" data-view="ideas" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.05V17a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-.25c0-.75.4-1.55 1-2.05A7 7 0 0 0 12 2Zm-2 17.5a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V19h-4v.5Z"/></svg>
+      <span>Ideas</span>
+    </button>
+    <button class="tab" data-view="categories" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h7l2 3h7a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
+      <span>Categories</span>
+    </button>
+    <button class="tab" data-view="settings" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.6a.5.5 0 0 0 .12-.64l-1.9-3.3a.5.5 0 0 0-.61-.22l-2.39.96a7.4 7.4 0 0 0-1.73-1l-.36-2.54a.5.5 0 0 0-.5-.42h-3.8a.5.5 0 0 0-.5.42l-.36 2.54a7.4 7.4 0 0 0-1.73 1l-2.39-.96a.5.5 0 0 0-.6.22l-1.9 3.3a.5.5 0 0 0 .11.64L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.6a.5.5 0 0 0-.12.64l1.9 3.3c.13.22.4.31.61.22l2.39-.96c.53.42 1.11.76 1.73 1l.36 2.54c.04.24.25.42.5.42h3.8c.25 0 .46-.18.5-.42l.36-2.54a7.4 7.4 0 0 0 1.73-1l2.39.96c.22.09.48 0 .6-.22l1.9-3.3a.5.5 0 0 0-.11-.64L19.4 13ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg>
+      <span>Settings</span>
+    </button>
+  </nav>
+
+  <!-- ============ MODAL ============ -->
+  <div id="modal-overlay" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title" class="modal-title"></h3>
+      <div id="modal-body" class="modal-body"></div>
+      <div id="modal-actions" class="modal-actions"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
